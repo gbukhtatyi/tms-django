@@ -1,0 +1,18 @@
+{% if notes %}
+    <div class="row">
+        {% for note in notes %}
+            <div class="col-4 mb-3">
+                <div class=" card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ note.title }}</h5>
+                        <p class="card-text">{{ note.content }}</p>
+                        <a href="/notes/{{ note.uuid }}" class="btn btn-primary">View</a>
+                        <a href="/notes/{{ note.uuid }}/remove" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="alert alert-danger" role="alert">Not found records</p>
+{% endif %}

@@ -1,0 +1,19 @@
+{% extends "layout/default.html" %}
+
+{% block page_title %}
+    <h2>Просмотр записи</h2>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">View note</li>
+        </ol>
+    </nav>
+{% endblock page_title %}
+
+{% block page_content %}
+
+    {% include "notes/form.html" with form_action="update" %}
+
+{% endblock page_content %}
+

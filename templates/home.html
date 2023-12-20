@@ -1,0 +1,16 @@
+{% extends "layout/default.html" %}
+
+{% block page_title %}
+    <h2 class="mb-3">Home</h2>
+{% endblock page_title %}
+
+{% block page_content %}
+    <h3 class="mb-3">Create note</h3>
+
+    {% include "notes/form.html" with form_action="add" %}
+
+    <h3 class="mb-3">Notes</h3>
+
+    {% include "notes/grid.html" %}
+
+{% endblock page_content %}

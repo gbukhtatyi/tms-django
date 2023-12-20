@@ -1,0 +1,36 @@
+<div class="card mb-3">
+    <div class="card-body">
+        {% if form_action == "add" %}
+            <form action="/notes" method="POST">
+        {% else %}
+            <form action="/notes/{{ note.uuid }}" method="POST">
+        {% endif %}
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ note.title }}">
+        </div>
+        <div class="form-group mb-3">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="content">{{ note.content }}</textarea>
+        </div>
+        {% if note.created_at %}
+            <div class="form-group mb-3">
+                <label for="content">Created at</label>
+                <span class="form-control">{{ note.created_at }}</span>
+            </div>
+        {% endif %}
+        {% if note.updated_at %}
+            <div class="form-group mb-3">
+                <label for="content">Updated at</label>
+                <span class="form-control">{{ note.updated_at }}</span>
+            </div>
+        {% endif %}
+        {% if form_action == "add" %}
+            <button class="btn btn-primary" type="submit">Add</button>
+        {% else %}
+            <button class="btn btn-primary" type="submit">Update</button>
+        {% endif %}
+        </form>
+    </div>
+</div>
