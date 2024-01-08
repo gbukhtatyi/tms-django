@@ -9,8 +9,8 @@
                                                                           href="/user/{{ note.user.username }}/notes">Author: {{ note.user.username }}</a></small>
                         </h5>
                         <p class="card-text">{{ note.content }}</p>
-                        <a href="/notes/{{ note.uuid }}" class="btn btn-primary">View</a>
                         {% if user.id == note.user_id %}
+                            <a href="/notes/{{ note.uuid }}" class="btn btn-primary">View</a>
                             <a href="/notes/{{ note.uuid }}/remove" class="btn btn-danger">Remove</a>
                         {% endif %}
                     </div>

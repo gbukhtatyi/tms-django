@@ -1,11 +1,10 @@
+import uuid
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
-from django.contrib.auth import authenticate
-import uuid
+from django.contrib.auth.decorators import login_required
 from .models import User, Note
-import django.contrib.auth.urls
 
 
 # region Auth
@@ -87,8 +86,9 @@ def page_about_us(request):
 # region Users
 
 def user_notes(request: WSGIRequest, username):
-    owner = User.objects.get(username=username)
-    if owner == None:
+    try:
+        owner = User.objects.get(username=username)
+    except Note.DoesNotExist:
         return render(request, "home.html", {"errors": ["User not found."]})
 
     return render(request, "users/notes.html", {
@@ -101,13 +101,13 @@ def user_notes(request: WSGIRequest, username):
 
 # region Notes
 
+@login_required
 def note_create(request: WSGIRequest):
     if request.method == "POST":
-        user_id = request.user.id
         note = Note.objects.create(
             title=request.POST.get("title", False),
             content=request.POST.get("content", False),
-            user_id=user_id,
+            user=request.user,
             image=request.FILES.get("image", None)
         )
         return HttpResponseRedirect("/notes/" + str(note.uuid))
@@ -115,10 +115,14 @@ def note_create(request: WSGIRequest):
     return render(request, "create_form.html")
 
 
+@login_required
 def note_view(request: WSGIRequest, note_uuid):
     try:
         note = Note.objects.get(uuid=uuid.UUID(note_uuid))
     except Note.DoesNotExist:
+        raise Http404
+
+    if request.user != note.user:
         raise Http404
 
     if request.method == "POST":

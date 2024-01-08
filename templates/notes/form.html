@@ -18,7 +18,7 @@
         </div>
         <div class="form-group mb-3">
             <label for="image">Image:</label>
-            {% if note %}
+            {% if note.image %}
                 <img src="{{ note.image.url }}" height="150" class="m-2" style="display: block"/>
             {% endif %}
             <input name="image" type="file" class="form-control" id="image">
