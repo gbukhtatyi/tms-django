@@ -5,17 +5,37 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body class="bg-light">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">TMS</a>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/about-us">About</a>
-            </li>
+<nav class="py-2 bg-body-tertiary border-bottom">
+    <div class="container d-flex flex-wrap">
+        <ul class="nav me-auto">
+            <li class="nav-item"><a href="/" class="nav-link link-body-emphasis px-2" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="/about-us" class="nav-link link-body-emphasis px-2">About</a></li>
+        </ul>
+        <ul class="nav">
+            {% if user.is_authenticated %}
+                <li class="nav-item"><a href="/user/{{ user.username }}/notes"
+                                        class="nav-link link-body-emphasis px-2">{{ user.username }}</a></li>
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <li class="nav-item">
+                        <button class="nav-link link-body-emphasis px-2" type="submit">Logout</button>
+                    </li>
+                </form>
+            {% else %}
+                <li class="nav-item"><a href="/auth/login" class="nav-link link-body-emphasis px-2">Login</a></li>
+                <li class="nav-item"><a href="/auth/register" class="nav-link link-body-emphasis px-2">Sign up</a></li>
+            {% endif %}
         </ul>
     </div>
 </nav>
+<header class="py-3 mb-4 border-bottom">
+    <div class="container d-flex flex-wrap justify-content-center">
+        <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
+            <span class="fs-4">TMS Django project</span>
+        </a>
+        <form action="/" method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
+            <input type="search" name="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+    </div>
+</header>
 <main role="main">
