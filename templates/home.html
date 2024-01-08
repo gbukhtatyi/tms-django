@@ -5,9 +5,11 @@
 {% endblock page_title %}
 
 {% block page_content %}
-    <h3 class="mb-3">Create note</h3>
+    {% if user.is_authenticated %}
+        <h3 class="mb-3">Create note</h3>
 
-    {% include "notes/form.html" with form_action="add" %}
+        {% include "notes/form.html" with form_action="add" %}
+    {% endif %}
 
     <h3 class="mb-3">Notes</h3>
 

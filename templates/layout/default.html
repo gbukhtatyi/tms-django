@@ -7,6 +7,14 @@
                 <h2>Default title</h2>
             {% endblock page_title %}
 
+            {% if errors %}
+                <div class="alert alert-danger">
+                    {% for error in errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             {% block page_content %}
                 <p>Default Content</p>
             {% endblock page_content %}
