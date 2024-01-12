@@ -2,6 +2,8 @@
 # Scripts
 
 ```bash
+# Create super user
+python manage.py createsuperuser
 
 # Create migration for new Models
 python manage.py makemigrations
