@@ -1,0 +1,19 @@
+{% extends "layout/default.html" %}
+
+{% block page_title %}
+    <h2>Заметки пользователя: </h2>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ owner.username }}</li>
+        </ol>
+    </nav>
+{% endblock page_title %}
+
+{% block page_content %}
+
+    {% include "notes/grid.html" %}
+
+{% endblock page_content %}
+
