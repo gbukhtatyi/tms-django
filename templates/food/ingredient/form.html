@@ -1,0 +1,26 @@
+{% load crispy_forms_tags %}
+
+<div class="card mb-3">
+    <div class="card-body">
+        {% if user %}
+            {% if form_action == "add" %}
+                <form action="/food/ingredients" method="POST">
+            {% else %}
+                <form action="/food/ingredients/{{ ingredient.uuid }}" method="POST">
+            {% endif %}
+        {% endif %}
+        {% csrf_token %}
+
+        {{ form | crispy }}
+
+        {% if user %}
+            {% if form_action == "add" %}
+                <button class="btn btn-primary" type="submit">Add</button>
+            {% else %}
+                <button class="btn btn-primary" type="submit">Update</button>
+            {% endif %}
+            </form>
+
+        {% endif %}
+    </div>
+</div>

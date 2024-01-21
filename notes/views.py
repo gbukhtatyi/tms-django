@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from .models import User, Note
+from users.models import User
+from .models import Note
 from .services import get_user_tags
 
 

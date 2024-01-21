@@ -4,7 +4,6 @@ import shutil
 from django.conf import settings
 # Users
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractUser
 # Model
 from django.dispatch import receiver
 from django.db import models
@@ -14,13 +13,6 @@ from django.db.models.signals import post_delete, pre_save
 def upload_to(instance: "Note", filename: str) -> str:
     """Путь для файла относительно корня медиа хранилища."""
     return f"{instance.uuid}/{filename}"
-
-
-class User(AbstractUser):
-    phone = models.CharField(max_length=11, null=True, blank=True)
-
-    class Meta:
-        db_table = "users"
 
 
 class Tag(models.Model):
@@ -37,7 +29,7 @@ class Note(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    image = models.ImageField(upload_to=upload_to, null=True)
+    image = models.ImageField(upload_to=upload_to, default=None, null=True, blank=True)
 
     # Relations
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Owner")

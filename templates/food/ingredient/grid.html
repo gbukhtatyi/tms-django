@@ -1,0 +1,20 @@
+{% if ingredients %}
+    <div class="row">
+        {% for ingredient in ingredients %}
+            <div class="col-4 mb-3">
+                <div class=" card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ ingredient.title }}</h5>
+                        <p class="card-text">{{ ingredient.content }}</p>
+                        <a href="/food/ingredients/{{ ingredient.uuid }}" class="btn btn-primary">View</a>
+                        {% if user.id == note.user_id %}
+                            <a href="/food/ingredients/{{ ingredient.uuid }}/remove" class="btn btn-danger">Remove</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="alert alert-danger" role="alert">Not found records</p>
+{% endif %}
