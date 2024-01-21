@@ -33,6 +33,7 @@ urlpatterns = [
     path("about-us", notes.views.page_about_us),
 
     # Users
+    path("profile", notes.views.user_profile),
     path("user/<username>/notes", notes.views.user_notes),
 
     # Notes

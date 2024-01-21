@@ -17,8 +17,17 @@ def upload_to(instance: "Note", filename: str) -> str:
 
 
 class User(AbstractUser):
+    phone = models.CharField(max_length=11, null=True, blank=True)
+
     class Meta:
         db_table = "users"
+
+
+class Tag(models.Model):
+    content = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.content
 
 
 class Note(models.Model):
@@ -32,9 +41,10 @@ class Note(models.Model):
 
     # Relations
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Owner")
+    tags = models.ManyToManyField(Tag, related_name="notes", verbose_name="Теги")
 
     class Meta:
-        ordering = ['-updated_at']
+        ordering = ['-created_at']
         indexes = [
             models.Index(fields=("created_at",), name="created_at_index"),
             models.Index(fields=("updated_at",), name="updated_at_index"),
@@ -54,7 +64,7 @@ def presave_note(sender, instance: Note, **kwargs):
             note = Note.objects.get(uuid=instance.uuid)
         except Note.DoesNotExist:
             note = None
-            
+
         if note is not None:
             note = Note.objects.get(uuid=instance.uuid)
             if note.image != instance.image:

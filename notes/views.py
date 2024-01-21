@@ -5,6 +5,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from .models import User, Note
+from .services import get_user_tags
 
 
 # region Auth
@@ -84,6 +85,23 @@ def page_about_us(request):
 
 
 # region Users
+
+@login_required
+def user_profile(request: WSGIRequest):
+    errors = []
+    if request.method == "POST":
+        request.user.first_name = request.POST.get("firstname", None)
+        request.user.last_name = request.POST.get("lastname", None)
+        request.user.phone = request.POST.get("phone", None)
+        request.user.save()
+
+    tags = get_user_tags(request.user.id)
+
+    return render(request, "users/profile.html", {
+        "tags": tags,
+        "errors": errors
+    })
+
 
 def user_notes(request: WSGIRequest, username):
     try:
