@@ -45,7 +45,7 @@ urlpatterns = [
     # Food
     path("food", food.views.food_index),
     path("food/ingredients", food.views.ingredient_create),
-    path("food/ingredients/<ingredient_uuid>", food.views.ingredient_update),
+    path("food/ingredients/<ingredient_id>", food.views.ingredient_update),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

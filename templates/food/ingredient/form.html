@@ -6,7 +6,7 @@
             {% if form_action == "add" %}
                 <form action="/food/ingredients" method="POST">
             {% else %}
-                <form action="/food/ingredients/{{ ingredient.uuid }}" method="POST">
+                <form action="/food/ingredients/{{ ingredient.id }}" method="POST">
             {% endif %}
         {% endif %}
         {% csrf_token %}
