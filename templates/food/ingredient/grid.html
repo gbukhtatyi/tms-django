@@ -4,11 +4,11 @@
             <div class="col-4 mb-3">
                 <div class=" card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ ingredient.title }}</h5>
+                        <h5 class="card-title">{{ ingredient.name }}</h5>
                         <p class="card-text">{{ ingredient.content }}</p>
-                        <a href="/food/ingredients/{{ ingredient.uuid }}" class="btn btn-primary">View</a>
+                        <a href="/food/ingredients/{{ ingredient.id }}" class="btn btn-primary">View</a>
                         {% if user.id == note.user_id %}
-                            <a href="/food/ingredients/{{ ingredient.uuid }}/remove" class="btn btn-danger">Remove</a>
+                            <a href="/food/ingredients/{{ ingredient.id }}/remove" class="btn btn-danger">Remove</a>
                         {% endif %}
                     </div>
                 </div>
