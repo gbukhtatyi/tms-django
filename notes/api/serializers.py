@@ -14,12 +14,7 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ['id', 'content']
-
-
-class TagListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = ['id', 'content']
+        read_only_fields = ["id"]
 
 
 class NoteSerializer(serializers.ModelSerializer):

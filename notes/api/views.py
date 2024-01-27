@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from notes.api.permissions import IsOwnerOrReadOnly
 # Api
-from notes.api.serializers import NoteSerializer, NoteListSerializer, TagSerializer, TagListSerializer
+from notes.api.serializers import NoteSerializer, NoteListSerializer, TagSerializer
 # Notes
 from notes.models import Note, Tag
 
@@ -38,9 +38,7 @@ class TagListCreateAPIView(ListCreateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
 
     def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return TagSerializer
-        return TagListSerializer
+        return TagSerializer
 
 
 def api_notes_index(request):
