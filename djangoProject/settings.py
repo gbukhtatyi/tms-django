@@ -92,6 +92,15 @@ AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
+# Api
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated',
+    ],
+    "PAGE_SIZE": 2,
+}
+
 # Media
 
 MEDIA_ROOT = BASE_DIR / "media"
