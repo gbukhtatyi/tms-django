@@ -3,7 +3,4 @@ from .models import Tag
 
 
 def get_user_tags(user_id: int):
-    user_id_field = F("notes__user_id")
-    queryset = Tag.objects.select_related("notes").filter(Q(notes__user_id=user_id)).values('content')
-
-    return queryset
+    return Tag.objects.filter(notes__user__id=user_id).values_list("content", flat=True).distinct()

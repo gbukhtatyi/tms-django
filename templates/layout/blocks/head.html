@@ -8,13 +8,16 @@
 <nav class="py-2 bg-body-tertiary border-bottom">
     <div class="container d-flex flex-wrap">
         <ul class="nav me-auto">
-            <li class="nav-item"><a href="/" class="nav-link link-body-emphasis px-2" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="/" class="nav-link link-body-emphasis px-2">Home</a></li>
+            <li class="nav-item"><a href="/food" class="nav-link link-body-emphasis px-2">Food</a></li>
             <li class="nav-item"><a href="/about-us" class="nav-link link-body-emphasis px-2">About</a></li>
         </ul>
         <ul class="nav">
             {% if user.is_authenticated %}
-                <li class="nav-item"><a href="/user/{{ user.username }}/notes"
+                <li class="nav-item"><a href="/profile"
                                         class="nav-link link-body-emphasis px-2">{{ user.username }}</a></li>
+                <li class="nav-item"><a href="/user/{{ user.username }}/notes"
+                                        class="nav-link link-body-emphasis px-2">My notes</a></li>
                 <form method="POST" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <li class="nav-item">

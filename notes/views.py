@@ -1,10 +1,11 @@
 import uuid
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from .models import User, Note
+from users.models import User
+from .models import Note
 from .services import get_user_tags
 
 
@@ -135,10 +136,7 @@ def note_create(request: WSGIRequest):
 
 @login_required
 def note_view(request: WSGIRequest, note_uuid):
-    try:
-        note = Note.objects.get(uuid=uuid.UUID(note_uuid))
-    except Note.DoesNotExist:
-        raise Http404
+    note = get_object_or_404(Note, uuid=uuid.UUID(note_uuid))
 
     if request.user != note.user:
         raise Http404
@@ -167,11 +165,7 @@ def note_update(request: WSGIRequest, note: Note):
 
 
 def note_delete(note: Note, note_uuid):
-    try:
-        note = Note.objects.get(uuid=uuid.UUID(note_uuid))
-    except Note.DoesNotExist:
-        raise Http404
-
+    note = get_object_or_404(Note, uuid=uuid.UUID(note_uuid))
     note.delete()
 
     return HttpResponseRedirect("/")

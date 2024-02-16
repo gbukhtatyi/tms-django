@@ -1,0 +1,24 @@
+{% extends "layout/default.html" %}
+
+{% block page_title %}
+    <h2 class="mb-3">Home</h2>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Food</li>
+        </ol>
+    </nav>
+{% endblock page_title %}
+
+{% block page_content %}
+    {% if user.is_authenticated %}
+        <h3 class="mb-3">Create ingredient</h3>
+
+        {% include "food/ingredient/form.html" with form_action="add" %}
+    {% endif %}
+
+    <h3 class="mb-3">Ingredients</h3>
+
+    {% include "food/ingredient/grid.html" %}
+
+{% endblock page_content %}

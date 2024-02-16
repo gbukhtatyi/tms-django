@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 import notes.views
+import food.views
 
 urlpatterns = [
     # Admin panel
@@ -40,6 +41,11 @@ urlpatterns = [
     path("notes", notes.views.note_create),
     path("notes/<note_uuid>", notes.views.note_view),
     path("notes/<note_uuid>/remove", notes.views.note_delete),
+
+    # Food
+    path("food", food.views.food_index),
+    path("food/ingredients", food.views.ingredient_create),
+    path("food/ingredients/<ingredient_id>", food.views.ingredient_update),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
