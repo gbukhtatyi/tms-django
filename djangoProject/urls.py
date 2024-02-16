@@ -25,6 +25,9 @@ urlpatterns = [
     # Admin panel
     path('admin/', admin.site.urls),
 
+    # API
+    path('api/notes', include('notes.api.urls')),
+
     # Auth
     path('auth/', include("django.contrib.auth.urls")),
     path('auth/register', notes.views.auth_register),

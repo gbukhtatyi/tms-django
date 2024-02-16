@@ -1,5 +1,7 @@
+import os
 import uuid
 import shutil
+
 # Dango
 from django.conf import settings
 # Users
@@ -43,10 +45,14 @@ class Note(models.Model):
         ]
 
 
+def get_media_dir(uuid):
+    return (settings.MEDIA_ROOT / str(uuid))
+
+
 @receiver(post_delete, sender=Note)
 def delete_note(sender, instance: Note, **kwargs):
-    if instance.image:
-        shutil.rmtree((settings.MEDIA_ROOT / str(instance.uuid)))
+    if instance.image and os.path.exists(get_media_dir(uuid)):
+        shutil.rmtree(get_media_dir(uuid))
 
 
 @receiver(pre_save, sender=Note)
@@ -59,5 +65,5 @@ def presave_note(sender, instance: Note, **kwargs):
 
         if note is not None:
             note = Note.objects.get(uuid=instance.uuid)
-            if note.image != instance.image:
-                shutil.rmtree((settings.MEDIA_ROOT / str(instance.uuid)))
+            if note.image != instance.image and os.path.exists(get_media_dir(uuid)):
+                shutil.rmtree(get_media_dir(uuid))
