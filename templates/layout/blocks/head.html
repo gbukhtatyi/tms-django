@@ -9,6 +9,7 @@
     <div class="container d-flex flex-wrap">
         <ul class="nav me-auto">
             <li class="nav-item"><a href="/" class="nav-link link-body-emphasis px-2">Home</a></li>
+            <li class="nav-item"><a href="/notes/latest" class="nav-link link-body-emphasis px-2">Latest notes <span class="badge rounded-pill bg-info text-dark">{{ request.session.note_latest_count }}</span></a></li>
             <li class="nav-item"><a href="/food" class="nav-link link-body-emphasis px-2">Food</a></li>
             <li class="nav-item"><a href="/about-us" class="nav-link link-body-emphasis px-2">About</a></li>
         </ul>
@@ -18,7 +19,7 @@
                                         class="nav-link link-body-emphasis px-2">{{ user.username }}</a></li>
                 <li class="nav-item"><a href="/user/{{ user.username }}/notes"
                                         class="nav-link link-body-emphasis px-2">My notes</a></li>
-                <form method="POST" action="{% url 'logout' %}">
+                <form method="POST" action="/auth/logout/">
                     {% csrf_token %}
                     <li class="nav-item">
                         <button class="nav-link link-body-emphasis px-2" type="submit">Logout</button>

@@ -25,9 +25,6 @@ urlpatterns = [
     # Admin panel
     path('admin/', admin.site.urls),
 
-    # API
-    path('api/notes', include('notes.api.urls')),
-
     # Auth
     path('auth/', include("django.contrib.auth.urls")),
     path('auth/register', notes.views.auth_register),
@@ -42,13 +39,22 @@ urlpatterns = [
 
     # Notes
     path("notes", notes.views.note_create),
-    path("notes/<note_uuid>", notes.views.note_view),
+    path("notes/latest", notes.views.note_latest, name="note-latest"),
+    path("notes/<note_uuid>", notes.views.note_view, name="note-view"),
     path("notes/<note_uuid>/remove", notes.views.note_delete),
 
     # Food
     path("food", food.views.food_index),
     path("food/ingredients", food.views.ingredient_create),
     path("food/ingredients/<ingredient_id>", food.views.ingredient_update),
+
+    # API - Auth
+    path('api/auth/', include('djoser.urls.authtoken')),
+    path("api/auth/", include("djoser.urls.jwt")),
+    path("api/auth/", include("djoser.urls.base")),
+
+    # API
+    path('api/notes', include('notes.api.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
