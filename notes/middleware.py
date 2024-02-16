@@ -8,9 +8,7 @@ class LatestNotes(MiddlewareMixin):
         if ('note-view' != current_url.url_name):
             return
 
-        note_latest = []
-        if request.session.get("note_latest", False):
-            note_latest = request.session['note_latest']
+        note_latest = request.session.get("note_latest", [])
 
         note_uuid = current_url.kwargs['note_uuid']
         if (note_uuid in note_latest):
