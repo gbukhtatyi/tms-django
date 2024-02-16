@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from django.urls import path, include
 import notes.views
 import food.views
+import users.views
 
 urlpatterns = [
     # Admin panel
@@ -28,9 +29,10 @@ urlpatterns = [
     # Auth
     path('auth/', include("django.contrib.auth.urls")),
     path('auth/register', notes.views.auth_register),
+    path('auth/password-reset/', users.views.ResetPasswordView.as_view(), name='password_reset'),
 
     # Pages
-    path("", notes.views.page_home),
+    path("", notes.views.page_home, name='users-home'),
     path("about-us", notes.views.page_about_us),
 
     # Users
