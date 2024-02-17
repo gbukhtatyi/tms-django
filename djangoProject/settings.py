@@ -202,3 +202,6 @@ LOGGING = {
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+if os.environ.get("COLLECT_STATIC"):
+    STATIC_ROOT = "/var/www/django-food/static/"
