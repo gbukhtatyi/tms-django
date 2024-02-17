@@ -154,7 +154,16 @@ def note_view(request: WSGIRequest, note_uuid):
         {"note": note}
     )
 
+def note_latest(request: WSGIRequest):
+    latest_notes = Note.objects.filter(uuid__in=request.session.get('note_latest', []))
 
+    return render(
+        request,
+        "notes/latest.html",
+        {"notes": latest_notes}
+    )
+
+@login_required
 def note_update(request: WSGIRequest, note: Note):
     note.title = request.POST.get("title", False)
     note.content = request.POST.get("content", False)
@@ -163,7 +172,7 @@ def note_update(request: WSGIRequest, note: Note):
 
     return HttpResponseRedirect("/")
 
-
+@login_required
 def note_delete(note: Note, note_uuid):
     note = get_object_or_404(Note, uuid=uuid.UUID(note_uuid))
     note.delete()
