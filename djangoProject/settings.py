@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'users.apps.UsersConfig',
+    'events.apps.EventsConfig',
     'food.apps.FoodConfig',
     'notes.apps.NotesConfig',
     'rest_framework',
@@ -180,7 +181,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
-    "UPDATE_LAST_LOGIN": True
+    "UPDATE_LAST_LOGIN": True,
 }
 
 LOGGING = {
