@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission
 
 
-class IsSuperUser(BasePermission):
+class PostOrIsSuperUser(BasePermission):
     def has_object_permission(self, request, view, obj):
         return (
             request.method in ('POST')

@@ -1,4 +1,6 @@
 # Users
+from datetime import datetime
+
 from django.contrib.auth import get_user_model
 # Models
 from django.db import models
@@ -9,7 +11,7 @@ from django.db import models
 class Event(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    meeting_time = models.DateTimeField(null=True, blank=True, default=None)
+    meeting_time = models.DateTimeField(default=datetime.now)
     users = models.ManyToManyField(get_user_model(), related_name="events", verbose_name="Участники")
 
     class Meta:

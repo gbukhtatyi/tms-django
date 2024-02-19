@@ -1,6 +1,6 @@
 from django.http import Http404
 from rest_framework.generics import ListCreateAPIView
-from .permissions import IsSuperUser
+from .permissions import PostOrIsSuperUser
 from .serializers import RegisterSerializer
 from users.models import User
 
@@ -8,7 +8,7 @@ from users.models import User
 class RegisterApiView(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
-    permission_classes = [IsSuperUser]
+    permission_classes = [PostOrIsSuperUser]
 
     def get(self, request, *args, **kwargs):
         if request.user.is_superuser is False:
