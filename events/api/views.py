@@ -16,7 +16,7 @@ from .serializers import EventSerializer
 class EventListCreateAPIView(ListAPIView):
     permission_classes = [IsSuperUser]
 
-    queryset = Event.objects.all()  # .filter(meeting_time__gt=datetime.now())
+    queryset = Event.objects.filter(meeting_time__gt=datetime.now())
 
     def get_serializer_class(self):
         return EventSerializer
@@ -36,7 +36,7 @@ class SubscribeView(APIView):
     permission_classes = [IsAuthenticated]
 
     @csrf_exempt
-    def post(self, request, event_id,format=None):
+    def post(self, request, event_id, format=None):
         current_user = request.user
 
         event = get_object_or_404(Event, id=event_id)
@@ -48,5 +48,3 @@ class SubscribeView(APIView):
         event.save()
 
         return Response(EventSerializer(event).data)
-
-
