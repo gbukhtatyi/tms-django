@@ -57,6 +57,8 @@ urlpatterns = [
 
     # API
     path('api/notes', include('notes.api.urls')),
+    path('api/users', include('users.api.urls')),
+    path('api/events', include('events.api.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
